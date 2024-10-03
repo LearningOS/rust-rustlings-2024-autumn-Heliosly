@@ -3,13 +3,14 @@
 	This question requires you to use a stack to achieve a bracket match
 */
 
-// I AM NOT DONE
+
 #[derive(Debug)]
 struct Stack<T> {
 	size: usize,
 	data: Vec<T>,
 }
-impl<T> Stack<T> {
+impl<T> Stack<T>
+ {
 	fn new() -> Self {
 		Self {
 			size: 0,
@@ -30,8 +31,11 @@ impl<T> Stack<T> {
 		self.data.push(val);
 		self.size += 1;
 	}
-	fn pop(&mut self) -> Option<T> {
-		// TODO
+	fn pop(&mut self) -> Option<T> 
+	{   
+
+        self.data.remove(self.size-1);
+        self.size-=1;
 		None
 	}
 	fn peek(&self) -> Option<&T> {
@@ -100,9 +104,51 @@ impl<'a, T> Iterator for IterMut<'a, T> {
 }
 
 fn bracket_match(bracket: &str) -> bool
-{
-	//TODO
-	true
+{   
+	let mut st= Stack::new();
+	
+	for c in bracket.chars(){
+       if c=='('||c=='['||c=='{'{
+       st.push(c);
+	   }
+       else if c==')'||c=='}'||c==']'{
+		let d=st.peek();
+        let b;
+        match d{
+           Some(d)=>{
+             b=*d;
+
+           },
+           None=>{
+            return false;
+           }
+        }
+        match c{
+            ')'=>{
+              if b=='('{
+st.pop();
+              }
+            },
+            '}'=>{
+if b=='{'{
+    st.pop();
+              }
+            },
+            ']'=>{
+                if b=='['{
+                    st.pop();
+                }
+            }
+            _=>{
+                return true
+            }
+        }
+	   }
+	}
+    if st.size==0{true
+	}
+	
+	else {false}
 }
 
 #[cfg(test)]
