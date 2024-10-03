@@ -7,6 +7,8 @@
 // Execute `rustlings hint from_into` or use the `hint` watch subcommand for a
 // hint.
 
+use std::vec;
+
 #[derive(Debug)]
 struct Person {
     name: String,
@@ -40,10 +42,55 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
+// 847/10000
+// 实时翻译
+// 划译
+// /您的任务是完成此实现，以便编译行`let p=Person:：from（“Mark，20”）`。请注意，您需要将age组件解析为`usize`，类似于`4”.parse:：<usize>（）`。这一结果需要得到妥善处理。
+// //
+// //步骤：
+// 1.如果提供的字符串的长度为0，则返回默认值
+// //人。
+// 2.将给定的字符串拆分为其中的逗号。
+// 3.从拆分操作中提取第一个元素并将其用作名称。
+// 4.如果名称为空，则返回默认值Person。
+// 5.从split操作中提取另一个元素，并将其解析为“usize”作为age。
+// //如果在解析年龄时出现问题，则返回默认值
+// //Person否则，返回一个实例化的Person对象及其结果
+
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.len()<=1 {
+            Person::default()
+        }
+        else 
+        {    
+            let mut st=s.to_string();
+            let mut a:Vec<&str>=st.split(",").collect();
+            if a.len()!=2{
+                Person::default()
+            }
+            else
+            {let c=a[1].parse::<usize>();
+            match c{
+                Ok(c)=>{
+                    if a[0].len()<=0{
+Person::default()
+                    }
+else
+
+                    {Person{
+                        name:a[0].to_string(),
+                        age:c,
+                    }}
+                },
+                Err(_)=>{
+                    Person::default()
+                }
+            }}
+            
+        }
+        
     }
 }
 
