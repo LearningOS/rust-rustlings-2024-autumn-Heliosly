@@ -69,13 +69,37 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+    where 
+       T:PartialOrd+Clone
 	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
+	    let mut c: LinkedList<T>= LinkedList::new();
+        let mut ta: i32=0;
+        let mut tb: i32=0;
+        let mut la=list_a;
+        let mut lb =list_b;
+
+        while la.length!=ta as u32&&lb.length!=tb as u32{
+           let a=la.get(ta).unwrap().clone();
+           let b=lb.get(tb).unwrap().clone();
+           if a<b{
+            c.add(a);
+            ta+=1;
+           }
+           else{
+            c.add(b);
+            tb+=1;
+           }
         }
+        while la.length!=ta as u32{
+            c.add(la.get(ta).unwrap().clone());
+            ta+=1;
+        }
+        while lb.length!=tb as u32{
+            c.add(lb.get(tb).unwrap().clone());
+            tb+=1;
+        }
+        c
+        
 	}
 }
 
@@ -116,7 +140,7 @@ mod tests {
         println!("Linked List is {}", list);
         assert_eq!(3, list.length);
     }
-
+    
     #[test]
     fn create_string_list() {
         let mut list_str = LinkedList::<String>::new();

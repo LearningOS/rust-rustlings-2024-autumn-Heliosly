@@ -3,12 +3,13 @@
 	This problem requires you to implement a basic BFS algorithm
 */
 
-//I AM NOT DONE
+
 use std::collections::VecDeque;
 
 // Define a graph
 struct Graph {
     adj: Vec<Vec<usize>>, 
+    count:usize,
 }
 
 impl Graph {
@@ -16,9 +17,10 @@ impl Graph {
     fn new(n: usize) -> Self {
         Graph {
             adj: vec![vec![]; n],
+            count:n,
         }
     }
-
+    
     // Add an edge to the graph
     fn add_edge(&mut self, src: usize, dest: usize) {
         self.adj[src].push(dest); 
@@ -29,8 +31,29 @@ impl Graph {
     fn bfs_with_return(&self, start: usize) -> Vec<usize> {
         
 		//TODO
-
+        let mut q: [usize; 100] = [0; 100]; 
+        let mut l=0;
+        let mut r=0;
+        let vec=&self.adj;
         let mut visit_order = vec![];
+        let mut vis :Vec<bool>=vec![true;self.count+1];
+        let mut i;
+        r+=1;
+        q[l]=start;
+        vis[start]=false;
+        while l!=r{
+            i=q[l];
+            visit_order.push(i);
+            
+            l+=1;
+            for to in &vec[i]{
+                if vis[*to]{
+                   q[r]=*to;
+                   r+=1;
+                   vis[*to]=false;
+                }
+            }
+        }
         visit_order
     }
 }
